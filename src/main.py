@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
-from constants.http_status_code import HTTP_STATUS
+from src.constants.http_status_code import HTTP_STATUS
 from src.error.exceptions_error import APIError
 from src.templates.home_template import home_template
 from src.error.global_error import global_error_handler
@@ -10,13 +10,28 @@ from src.routes.api_router_v1 import router_v1
 
 app = FastAPI(title="FastAPI")
 
+# CORS configarations
+origins = [
+    "*"
+]
+
+methods = [
+    # "GET",
+    # "POST"
+    "*"
+]
+
+headers = [
+    "*"
+]
+
 # CORS 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=methods,
+    allow_headers=headers,
 )
 
 # Error exception middleware
