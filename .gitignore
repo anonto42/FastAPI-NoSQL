@@ -1,0 +1,75 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env
+.venv/
+ENV/
+
+# Python cache
+*.log
+*.pot
+*.pyc
+
+# Test cache
+.pytest_cache/
+coverage.xml
+htmlcov/
+.tox/
+
+# Environment variables & secrets
+.env
+.env.*
+
+# MyPy, Pylint, etc.
+.mypy_cache/
+.dmypy.json
+.pyre/
+
+# VSCode or PyCharm settings
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Database
+*.sqlite3
+*.db
+
+# Alembic migration files (compiled)
+alembic/versions/*.pyc
+
+# Pip/Poetry
+pip-wheel-metadata/
+poetry.lock
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# Docker
+*.pid
+*.log
+docker-compose.override.yml
+
+# FastAPI static/uploads
+uploads/
+staticfiles/
+
+# Pydantic generated cache (if using compiled models)
+__pydantic__/ 
+
+# PyInstaller
+*.spec
+dist/
+build/
+
+# Local dev tools
+*.swp
+
+# Output folders
+/uploads
