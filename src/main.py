@@ -1,11 +1,12 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
-from src.utils.http_status_code import HTTP_STATUS
+from constants.http_status_code import HTTP_STATUS
 from src.error.exceptions_error import APIError
 from src.templates.home_template import home_template
 from src.error.global_error import global_error_handler
 from src.error.json_error_hangler import api_json_error_handler
+from src.routes.api_router_v1 import router_v1
 
 app = FastAPI(title="FastAPI")
 
@@ -30,3 +31,12 @@ async def global_error_handler_middleware(request, call_next):
 @app.get("/")
 def read_root():
     return HTMLResponse(content=home_template(), status_code=HTTP_STATUS.OK)
+
+# Route intery poient
+app.include_router(router_v1, prefix="/api/v1")
+
+# @app.on_event("startup")
+# async def show_routes():
+#     print("\nRegistered Routes:")
+#     for route in app.router.routes:
+#       print(f"{route.path} -> {route.name}")
