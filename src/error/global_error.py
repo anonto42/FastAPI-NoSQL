@@ -1,6 +1,6 @@
 from fastapi import Request
 from fastapi.responses import JSONResponse
-from exceptions import APIError
+from src.error.exceptions_error import APIError
 import os, traceback, logging
 
 ENV = os.getenv("ENV", "development")
