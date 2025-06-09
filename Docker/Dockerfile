@@ -1,0 +1,1 @@
+FROM armv7/armhf-ubuntu_automated-build
