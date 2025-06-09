@@ -1,0 +1,22 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+
+
+# Editor settings
+.vscode/
+.idea/
+
+# Git
+.git/
+.gitignore
+
+# FastAPI static/uploads)
+uploads/
+
+# Docker Images
+*/Dockerfile
+*/Dockerfile.*
+
+# Pydantic cache (if any)
+__pydantic__/
