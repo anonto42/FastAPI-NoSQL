@@ -39,6 +39,7 @@ Thumbs.db
 
 # Database
 *.sqlite3
+*.sqlite
 *.db
 
 # Alembic migration files (compiled)
