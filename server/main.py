@@ -7,6 +7,7 @@ from server.templates.home_template import home_template
 from server.error.global_error import global_error_handler
 from server.error.json_error_handler import api_json_error_handler
 from server.routes.api_router_v1 import router_v1
+from server.db.db_connection import init_db
 
 app = FastAPI(title="FastAPI")
 
@@ -41,6 +42,11 @@ app.add_exception_handler(APIError, api_json_error_handler)
 @app.middleware("http")
 async def global_error_handler_middleware(request, call_next):
     return await global_error_handler(request, call_next)
+
+# Initialize the database connection
+@app.on_event("startup")
+async def startup_db():
+    init_db()
 
 # Sample route
 @app.get("/")
