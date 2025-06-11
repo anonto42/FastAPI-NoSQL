@@ -8,7 +8,7 @@ async def api_json_error_handler(request: Request, exc: APIError):
         content={
             "success": False,
             "message": exc.detail["message"],
-            "stack_trace": exc.detail["stack_trace"],
             "path": exc.detail["path"],
+            "stack_trace": exc.detail["stack_trace"],
         }
     )
