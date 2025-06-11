@@ -5,9 +5,8 @@ from server.constants.http_status_code import HTTP_STATUS
 from server.error.exceptions_error import APIError
 from server.templates.home_template import home_template
 from server.error.global_error import global_error_handler
-from server.error.json_error_hangler import api_json_error_handler
+from server.error.json_error_handler import api_json_error_handler
 from server.routes.api_router_v1 import router_v1
-from server.db import db_connection
 
 app = FastAPI(title="FastAPI")
 
@@ -37,11 +36,6 @@ app.add_middleware(
 
 # Error exception middleware
 app.add_exception_handler(APIError, api_json_error_handler)
-
-# Setup on DB on startup
-@app.on_event("startup")
-def on_startup():
-    db_connection.on_startup()
 
 # Global error handler middleware
 @app.middleware("http")
