@@ -1,5 +1,5 @@
-from src.error.exceptions_error import APIError
-from src.constants.http_status_code import HTTP_STATUS
+from server.error.exceptions_error import APIError
+from server.constants.http_status_code import HTTP_STATUS
 
 async def login():
     try:

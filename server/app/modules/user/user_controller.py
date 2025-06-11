@@ -1,6 +1,6 @@
-from src.app.modules.user import user_service
-from src.utils.send_res import send_response
-from src.constants.http_status_code import HTTP_STATUS
+from server.app.modules.user import user_service
+from server.utils.send_res import send_response
+from server.constants.http_status_code import HTTP_STATUS
 from fastapi import Request
 
 async def register_user(req: Request):

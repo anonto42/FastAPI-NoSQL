@@ -1,6 +1,6 @@
 from sqlmodel import Session, SQLModel, select
 from typing import Type, TypeVar, Optional, Dict, Any, List
-from src.db.db_connection import engine
+from server.db.db_connection import engine
 
 ModelType = TypeVar("ModelType", bound=SQLModel)
 

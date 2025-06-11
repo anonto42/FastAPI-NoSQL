@@ -1,4 +1,4 @@
-from src.app.modules.user import user_controller
+from server.app.modules.user import user_controller
 from fastapi import APIRouter,Request
 
 router = APIRouter()

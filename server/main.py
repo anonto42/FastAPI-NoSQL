@@ -1,13 +1,13 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
-from src.constants.http_status_code import HTTP_STATUS
-from src.error.exceptions_error import APIError
-from src.templates.home_template import home_template
-from src.error.global_error import global_error_handler
-from src.error.json_error_hangler import api_json_error_handler
-from src.routes.api_router_v1 import router_v1
-from src.db import db_connection
+from server.constants.http_status_code import HTTP_STATUS
+from server.error.exceptions_error import APIError
+from server.templates.home_template import home_template
+from server.error.global_error import global_error_handler
+from server.error.json_error_hangler import api_json_error_handler
+from server.routes.api_router_v1 import router_v1
+from server.db import db_connection
 
 app = FastAPI(title="FastAPI")
 
