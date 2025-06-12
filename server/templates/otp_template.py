@@ -1,10 +1,10 @@
-def otp_body(otp: str) -> str:
+def otp_body(otp: str, name: str, sub: str) -> str:
     return f"""
     <!DOCTYPE html>
     <html lang="en">
     <head>
       <meta charset="UTF-8">
-      <title>Your OTP Code</title>
+      <title>{sub}</title>
       <style>
         body {{
           font-family: Arial, sans-serif;
@@ -31,24 +31,14 @@ def otp_body(otp: str) -> str:
           margin: 20px 0;
           color: #007BFF;
         }}
-        .footer {{
-          font-size: 12px;
-          color: #888;
-          text-align: center;
-          margin-top: 30px;
-        }}
       </style>
     </head>
     <body>
       <div class="container">
-        <h2>Hello 👋,</h2>
+        <h2>Hello 👋, {name}</h2>
         <p>Here is your One-Time Password (OTP) for verification:</p>
         <div class="otp">{otp}</div>
         <p>This code will expire in 5 minutes. Please do not share this code with anyone.</p>
-        <p>Thanks,<br>The FastAPI Team</p>
-        <div class="footer">
-          © 2025 FastAPI App. All rights reserved.
-        </div>
       </div>
     </body>
     </html>
