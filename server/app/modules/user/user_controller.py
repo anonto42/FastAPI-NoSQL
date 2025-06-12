@@ -8,6 +8,7 @@ from server.error.exceptions_error import APIError
 async def register_user(req: Request):
 
     body = await req.json()
+    database = req.app.database
 
     try:
         user = User( **body )
@@ -15,7 +16,7 @@ async def register_user(req: Request):
         print(err)
         raise APIError(status_code=HTTP_STATUS.Expectation_Failed, message="Invalid input data")
 
-    result = await user_service.register_user(user)
+    result = await user_service.register_user(user,database)
 
     return send_response(
         True,
