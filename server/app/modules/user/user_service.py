@@ -1,29 +1,40 @@
 from .user_schema import User
 from .user_model import user_model
-from ....db.db_connection import db
+from ....db.model import Model
 from server.utils import crypto_context
 from server.constants.http_status_code import HTTP_STATUS
 from server.error.exceptions_error import APIError
+from server.helper.otp import generate_otp
+from server.helper.otp_send_on_mail import send_email
 
 async def register_user(
-    payload: User
+    payload: User,
+    db: any
 ):
-    existing_user = user_model.find_by_email(payload.email)
+
+    existing_user = db[Model.USER.value].find_one({"email": payload.email })
     if existing_user:
-        raise APIError(status_code=HTTP_STATUS.Not_Found, message="Email is already in use")
+        raise APIError(status_code=HTTP_STATUS.Forbidden, message="Email is already in use")
     
     hash_password = crypto_context.hash_password(payload.password)
 
     try:
-        new_user = user_model(
-            name=payload.name,
-            email=payload.email,
-            hashed_password=hash_password
-        )
+        otp = generate_otp()
+    
+        user_data = {
+            "name": str(payload.name),
+            "email": str(payload.email),
+            "password": str(hash_password),
+            "otp": otp
+        }
 
-        user = new_user.save()
+        _user_ = user_model(**user_data)
+
+        db[Model.USER.value].insert_one(_user_.dict())
+
+        send_email(otp,payload.email,payload.name,"Verify Account")
         
-        return dict(user)
+        return True
     
     except ValueError as e :
         print(ValueError)
