@@ -1,6 +1,5 @@
 from pymongo import MongoClient
 from server.config import env
-from fastapi import HTTPException
 from ..error.exceptions_error import APIError
 from ..constants.http_status_code import HTTP_STATUS
 from colorama import init, Fore, Back, Style
