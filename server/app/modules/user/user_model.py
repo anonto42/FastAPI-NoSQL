@@ -1,36 +1,41 @@
-from server.db.db_connection import db
-from typing import Optional
+from pydantic import BaseModel,Field
 from uuid import uuid4
+from typing import Optional
+from enum import Enum
+from datetime import datetime
+from server.utils.time_stamp import current_timestamp
 
-class user_model:
-    def __init__(self, name: str, email: str, hashed_password: str, user_id: Optional[str] = None):
-        self.name = name
-        self.email = email
-        self.hashed_password = hashed_password
-        self.id = user_id if user_id else str(uuid4())
+class UserType ( Enum ):
+    USER = 'USER'
+    SALES_MAN = 'SALSE_MAN'
+    ADMIN = 'ADMIN'
 
-    def save(self):
-        # Ensure db is initialized
-        if db is None:
-            raise Exception("Database connection is not established.")
-        
-        user_dict = {
-            "id": self.id,
-            "name": self.name,
-            "email": self.email,
-            "password": self.hashed_password
+class user_model(BaseModel):
+    id: Optional[str] = str(uuid4())
+    name: str
+    email: str
+    password: str
+    isVerified: Optional[bool] = False
+    otp: Optional[int]
+    role: Optional[UserType] = UserType.USER.value
+
+    # Timestamps
+    created_at: datetime = Field(default_factory=current_timestamp)
+    updated_at: datetime = Field(default_factory=current_timestamp)
+
+
+    class Config:
+        validate_by_name = True
+        json_schema_extra = {
+            "example": {
+                "_id": "066de609-b04a-4b30-b46c-32537c7f1f6e",
+                "name": "Don Quixote",
+                "email": "tsts@gmail.com",
+                "password": "alsdflakseiokllk213k",
+                "role": "USER",
+                "isVerified": False,
+            }
         }
-        
-        result = db.users.insert_one(user_dict)
-        return result.inserted_id 
 
-    @classmethod
-    def find_by_email(cls, email: str):
-        # Ensure db is initialized
-        if db is None:
-            raise Exception("Database connection is not established.")
-            
-        user_data = db.users.find_one({"email": email})
-        if user_data:
-            return cls(**user_data)
-        return None
+    class Config:
+        use_enum_values = True  
