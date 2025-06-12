@@ -46,7 +46,9 @@ async def global_error_handler_middleware(request, call_next):
 # Initialize the database connection
 @app.on_event("startup")
 async def startup_db():
-    init_db()
+    db_info = init_db()
+    app.mongodb_client = db_info[1]
+    app.database = db_info[0]
 
 # Sample route
 @app.get("/")
@@ -55,3 +57,7 @@ def read_root():
 
 # Route intery poient
 app.include_router(router_v1, prefix="/api/v1")
+
+@app.on_event("shutdown")
+def shutdown_db_client():
+    app.mongodb_client.close()
