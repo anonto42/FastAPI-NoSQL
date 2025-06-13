@@ -25,11 +25,11 @@ async def register_user(req: Request):
         HTTP_STATUS.OK
     )
 
-async def get_user(req: Request):
+def get_user(req: Request):
 
-    print(req)
+    user = req
 
-    result = await user_service.register_user()
+    result = user_service.get_profile(user)
 
     return send_response(
         True,

@@ -39,3 +39,9 @@ async def register_user(
     except ValueError as e :
         print(ValueError)
         raise  APIError(status_code=HTTP_STATUS.Internal_Server_Error, message=str(e))
+    
+def get_profile (
+    user: any
+):
+    print("user profile")
+    return {"Your":"lskdf"}
