@@ -20,11 +20,11 @@ def init_db():
         # mongo_uri = f"mongodb://{HOST_IP}:27017"
         # mongo_uri = "mongodb://toor:root@mongo:27017"
         # mongo_uri = f"mongodb://{MONGODB_ADMINUSERNAME}:{MONGODB_ADMINPASSWORD}@mongo:27017"
-        mongo_uri = "mongodb+srv://anonto:anontom90@cluster0.1zoujuq.mongodb.net"
+        # mongo_uri = "mongodb+srv://anonto:anontom90@cluster0.1zoujuq.mongodb.net"
         
         
-        # client = MongoClient(env.MONGO_URI)
-        client = MongoClient(mongo_uri)
+        client = MongoClient(MONGO_URI)
+        # client = MongoClient(mongo_uri)
         
         db = client[db_name]
         
@@ -32,7 +32,7 @@ def init_db():
         print(Fore.BLUE + Back.YELLOW + Style.BRIGHT + "Database host is : ", Fore.GREEN + client.HOST)
         print(Fore.LIGHTBLUE_EX + Back.CYAN + Style.BRIGHT + "Database name is : ", Fore.BLUE + db_name)
         
-        client.server_info()  # This will send an error if the connection fails
+        client.server_info()
 
         return  [db , client] 
     except Exception as e:
