@@ -1,18 +1,22 @@
-# Use official Python image
-FROM python:3.11-slim
+FROM python:3.12-slim-bookworm
 
-# Set work directory
 WORKDIR /app
 
-# Install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Install curl and certificates
+RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
 
-# Copy source code
-COPY . .
+# Download and install uv
+ADD https://astral.sh/uv/install.sh /uv-installer.sh
+RUN sh /uv-installer.sh && rm /uv-installer.sh
 
-# Expose port
+ENV PATH="/root/.local/bin:$PATH"
+
+COPY pyproject.toml ./
+COPY . . 
+
+RUN rm -rf .venv
+
 EXPOSE ${PORT}
 
-# Run the FastAPI app with uvicorn
-CMD ["python", "start.py"]
+CMD ["uv", "run", "start.py"]
