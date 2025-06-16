@@ -113,7 +113,7 @@ services:
       - server-net
     depends_on:
       - mongo
-    deploy:
+    deploy: 
       resources:
         limits:
           cpus: "0.5"
