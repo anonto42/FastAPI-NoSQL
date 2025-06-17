@@ -1,12 +1,13 @@
-import auth_service
+from server.app.modules.auth import auth_service
 from fastapi import APIRouter,Request
+from ....constants.http_status_code import HTTP_STATUS
+from ....utils.send_res import send_response
 
 async def login(req):
-    print(req)
 
-    body = await req.json()
+    body = req.json()
 
-    result = await auth_service.login()
+    result = auth_service.login(body)
 
     return send_response(
         True,

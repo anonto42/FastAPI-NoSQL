@@ -14,17 +14,10 @@ db = None
 def init_db():
     global client, db
     try:
-        # Connect to MongoDB using the URI from the environment
-        # mongo_uri = "mongodb://localhost:27017/"
-        db_name = DATABASE_NAME
-        # mongo_uri = f"mongodb://{HOST_IP}:27017"
-        # mongo_uri = "mongodb://toor:root@mongo:27017"
-        # mongo_uri = f"mongodb://{MONGODB_ADMINUSERNAME}:{MONGODB_ADMINPASSWORD}@mongo:27017"
-        # mongo_uri = "mongodb+srv://anonto:anontom90@cluster0.1zoujuq.mongodb.net"
         
+        db_name = DATABASE_NAME
         
         client = MongoClient(MONGO_URI)
-        # client = MongoClient(mongo_uri)
         
         db = client[db_name]
         
@@ -34,6 +27,7 @@ def init_db():
         
         client.server_info()
 
-        return  [db , client] 
+        return  client 
+    
     except Exception as e:
         raise APIError(status_code=HTTP_STATUS.Internal_Server_Error,message=f"Database connection error: {str(e)}")

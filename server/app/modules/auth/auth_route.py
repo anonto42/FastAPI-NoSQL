@@ -2,10 +2,10 @@
 from fastapi import APIRouter,Request
 from server.utils.send_res import send_response
 from server.constants.http_status_code import HTTP_STATUS
+from server.app.modules.auth import auth_controller
 
 router = APIRouter()
 
 @router.post("/login")
-def login(req: Request):
-    # return auth_controller.login
-    return
+async def login(req: Request):
+    return auth_controller.login(req)

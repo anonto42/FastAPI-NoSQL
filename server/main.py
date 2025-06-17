@@ -47,8 +47,7 @@ async def global_error_handler_middleware(request, call_next):
 @app.on_event("startup")
 async def startup_db():
     db_info = init_db()
-    app.mongodb_client = db_info[1]
-    app.database = db_info[0]
+    app.mongo = db_info
 
 # Sample route
 @app.get("/")
